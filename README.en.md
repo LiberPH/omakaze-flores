@@ -2,7 +2,7 @@
 
 *[Versión en español](README.md)*
 
-Printer's ornaments (*fleurons*, Spanish *flores de imprenta*) from
+Printer's ornaments (*fleurons*, Spanish *flores de imprenta o florituras*) from
 *Monotype: A Journal of Composing Room Efficiency*, vol. 9, no. 6
 (January–February 1923), vectorized and collected as an OpenType font and as
 ready-to-use SVG and PDF files. They are meant above all for typesetting
