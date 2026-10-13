@@ -1,0 +1,41 @@
+% Espécimen de Omakaze Flores
+%   cd especimen && xelatex especimen.tex
+\documentclass{article}
+\usepackage[letterpaper,margin=15mm]{geometry}
+\usepackage{fontspec,xcolor}
+\setmainfont{EBGaramond}[Extension=.otf,UprightFont=*-Regular,ItalicFont=*-Italic]
+\newfontfamily\flores{OmakazeFlores-Regular.otf}[Path=../fuente/]
+\definecolor{verde}{RGB}{0,169,92}
+\definecolor{rojo}{RGB}{215,38,30}
+\pagestyle{empty}\setlength{\parindent}{0pt}
+% \muestra{carácter}{nombre}{tamaño en pt}
+\newcommand{\muestra}[3]{%
+  \begin{minipage}[b]{.31\linewidth}\centering
+    {\flores\fontsize{#3}{#3}\selectfont #1}\\[2mm]
+    {\small\ttfamily #1}\quad{\footnotesize #2}
+  \end{minipage}\hfill\ignorespaces}
+% superposición de dos tintas: marco + interior
+\newcommand{\doble}[4]{% {marco}{interior}{nombre}{tamaño}
+  \begin{minipage}[b]{.31\linewidth}\centering
+    {\flores\fontsize{#4}{#4}\selectfont\leavevmode\rlap{\color{verde}#1}\color{rojo}#2}\\[2mm]
+    {\small\ttfamily\textbackslash rlap\{#1\}#2}\\{\footnotesize #3}
+  \end{minipage}\hfill\ignorespaces}
+\begin{document}
+{\LARGE\itshape Omakaze Flores\par}
+{\small Ornamentos del \textit{Monotype Journal} vol.~9 n.º~6 (1923), vectorizados.
+Cada pieza ocupa una tecla; el tamaño de fuente fija su alto.\par}
+\vspace{8mm}
+\muestra{a}{remate}{40}\muestra{b}{rombo}{60}\muestra{c}{cruz}{50}\par\vspace{8mm}
+\muestra{d}{manita}{24}\muestra{e}{florón izq. (también ☙)}{24}\muestra{f}{florón der. (también ❧)}{24}\par\vspace{8mm}
+{\centering{\flores\fontsize{14}{14}\selectfont g}\\[1mm]{\small\ttfamily g}\quad{\footnotesize cenefa angosta}\par}\vspace{6mm}
+{\centering{\flores\fontsize{30}{30}\selectfont h}\\[1mm]{\small\ttfamily h}\quad{\footnotesize cenefa ancha}\par}\vspace{8mm}
+\muestra{i}{marco de título}{40}\muestra{n}{cartela}{50}\muestra{m}{marco del retrato}{80}\par
+\newpage
+\muestra{j}{marco capitular (W)}{80}\muestra{k}{marco capitular (O)}{80}\muestra{l}{marco capitular (I)}{90}\par\vspace{8mm}
+\doble{j}{W}{capitular W en dos tintas}{80}\doble{k}{O}{capitular O en dos tintas}{80}\doble{l}{I}{capitular I en dos tintas}{90}\par\vspace{8mm}
+\muestra{o}{marco de portada}{170}\muestra{p}{marco de contraportada}{170}%
+\begin{minipage}[b]{.31\linewidth}\centering
+  {\flores\fontsize{110}{110}\selectfont\leavevmode\rlap{\color{verde}m}q}\\[2mm]
+  {\small\ttfamily\textbackslash rlap\{m\}q}\\{\footnotesize retrato de Garamond en su marco}
+\end{minipage}
+\end{document}
