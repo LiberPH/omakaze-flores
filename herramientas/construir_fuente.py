@@ -20,7 +20,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SVG = os.path.join(RAIZ, "svg")
 FAMILIA = "Omakaze Flores"
 ARCHIVO = "OmakazeFlores-Regular.otf"
-VERSION = "0.1"
+VERSION = "0.2"
 UPM, ALTO, BAJADA = 1000, 1000, 150
 
 # pieza -> (carácter, otros caracteres que también la muestran)
@@ -28,7 +28,7 @@ PIEZAS = {
     "remate":              ("a", []),
     "rombo":               ("b", []),
     "cruz":                ("c", []),
-    "manita":              ("d", []),
+    "hoja-pequena":        ("d", []),
     "floron-izq":          ("e", [0x2619]),   # ☙
     "floron-der":          ("f", [0x2767]),   # ❧
     "cenefa-angosta":      ("g", []),
@@ -118,7 +118,8 @@ fb.setupNameTable({
     "licenseInfoURL": "https://creativecommons.org/publicdomain/zero/1.0/",
 })
 fb.setupOS2(sTypoAscender=ALTO - BAJADA, sTypoDescender=-BAJADA, sTypoLineGap=0,
-            usWinAscent=ALTO, usWinDescent=BAJADA + 50, achVendID="LPH ")
+            usWinAscent=ALTO, usWinDescent=BAJADA + 50, achVendID="LPH ",
+            fsType=0)  # instalable: sin restricciones de incrustación (CC0)
 fb.setupPost()
 os.makedirs(os.path.join(RAIZ, "fuente"), exist_ok=True)
 salida = os.path.join(RAIZ, "fuente", ARCHIVO)

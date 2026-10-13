@@ -1,0 +1,40 @@
+% Ejemplo del paquete omakazeflores
+%   cd latex && xelatex ejemplo.tex      (o lualatex)
+% Para las planchas de impresión a dos tintas, cambia la opción plancha:
+%   \usepackage[ruta=../fuente/, plancha=marco]{omakazeflores}
+\documentclass{article}
+\usepackage[a5paper,margin=18mm]{geometry}
+\usepackage[ruta=../fuente/]{omakazeflores}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  \florones{\scshape Capítulo primero}
+\end{center}
+
+\cenefa[angosta]
+
+\medskip
+\sbox0{\capitular[56pt]{O}}%
+\noindent\usebox0\hspace{4pt}%
+\parbox[b]{\dimexpr\linewidth-\wd0-4pt}{%
+  nce upon a time, the ornaments in this book were cast in type metal
+  and set by hand. Now each one is a key on the keyboard: the font size
+  sets its height, and the frame and the letter can be printed in two
+  different inks.}
+
+\separador
+
+Los florones también están en su lugar de Unicode:
+{\flores ☙} y {\flores ❧}, y se pueden usar en medio del texto
+\flor[11pt]{d} como cualquier otra letra.
+
+\cenefa
+
+\vfill
+\begin{center}
+  \capitular{W}\quad\capitular{I}\quad\retrato[80pt]
+\end{center}
+
+\end{document}

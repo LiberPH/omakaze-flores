@@ -1,0 +1,121 @@
+% omakazeflores.sty — ornamentos del Monotype Journal (1923) para LaTeX
+% Libertad Pantoja · Omakaze Books, 2026. Dominio público (CC0 1.0).
+%
+% Requiere XeLaTeX o LuaLaTeX y la fuente OmakazeFlores-Regular.otf.
+% Documentación: README.md (español) y README.en.md (inglés).
+\NeedsTeXFormat{LaTeX2e}[2020-10-01]
+\ProvidesExplPackage{omakazeflores}{2026-10-13}{0.2}
+  {Ornamentos del Monotype Journal (1923)}
+
+\sys_if_engine_xetex:F
+  {
+    \sys_if_engine_luatex:F
+      {
+        \PackageError{omakazeflores}
+          {Compila~con~XeLaTeX~o~LuaLaTeX}
+          {La~fuente~OpenType~no~se~puede~cargar~con~pdfLaTeX.}
+      }
+  }
+
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+
+% ---------------------------------------------------------------- opciones
+\tl_new:N \l__omf_ruta_tl
+\tl_new:N \l__omf_plancha_tl
+\keys_define:nn { omakazeflores }
+  {
+    % carpeta donde está OmakazeFlores-Regular.otf (con / final)
+    ruta    .tl_set:N = \l__omf_ruta_tl ,
+    % tintas por omisión del marco y de la letra (colores de xcolor)
+    marco   .code:n   = \colorlet{tintamarco}{#1} ,
+    letra   .code:n   = \colorlet{tintaletra}{#1} ,
+    % plancha para imprimir a dos tintas: ambas, marco o letra
+    plancha .choices:nn = { ambas, marco, letra }
+      { \tl_set_eq:NN \l__omf_plancha_tl \l_keys_choice_tl } ,
+    plancha .initial:n = ambas ,
+  }
+\definecolor{omfverde}{RGB}{0,169,92}   % tinta Green de riso, aprox.
+\definecolor{omfrojo}{RGB}{215,38,30}   % rojo de las capitulares de 1923
+\colorlet{tintamarco}{omfverde}
+\colorlet{tintaletra}{omfrojo}
+\cs_if_exist:NTF \ProcessKeyOptions
+  { \ProcessKeyOptions [ omakazeflores ] }
+  { % LaTeX anterior a 2022
+    \RequirePackage { l3keys2e }
+    \ProcessKeysOptions { omakazeflores }
+  }
+
+% ------------------------------------------------------------------ fuente
+\cs_new_protected:Npn \__omf_cargar:n #1
+  { \newfontfamily \flores { OmakazeFlores-Regular.otf } [ Path = {#1} ] }
+\cs_generate_variant:Nn \__omf_cargar:n { V }
+\tl_if_empty:NTF \l__omf_ruta_tl
+  { \newfontfamily \flores { OmakazeFlores-Regular.otf } }
+  { \__omf_cargar:V \l__omf_ruta_tl }
+
+% ----------------------------------------------------------------- órdenes
+% \flor[tamaño]{teclas}: piezas de la fuente; el tamaño fija su alto
+\NewDocumentCommand \flor { O{24pt} m }
+  { { \flores \fontsize {#1} {#1} \selectfont #2 } }
+
+% \separador[tamaño]: un remate centrado entre párrafos
+\NewDocumentCommand \separador { O{30pt} }
+  { \par \begin{center} \flor[#1]{a} \end{center} }
+
+% \florones[tamaño]{texto}: texto entre los florones izquierdo y derecho
+\NewDocumentCommand \florones { O{14pt} m }
+  { \flor[#1]{e} \quad {#2} \quad \flor[#1]{f} }
+
+% \cenefa[angosta|ancha]: cenefa al ancho de la línea
+\NewDocumentCommand \cenefa { O{ancha} }
+  {
+    \str_case:nnF {#1}
+      {
+        { ancha }   { \__omf_cenefa:n { h } }
+        { angosta } { \__omf_cenefa:n { g } }
+      }
+      { \PackageError{omakazeflores}
+          {\token_to_str:N \cenefa\space acepta~ancha~o~angosta}{} }
+  }
+\cs_new_protected:Npn \__omf_cenefa:n #1
+  { \par \smallskip \noindent \resizebox{\linewidth}{!}{ \flor[30pt]{#1} } \par \smallskip }
+
+% marco e interior superpuestos, cada uno en su tinta (o su plancha)
+\cs_new_protected:Npn \__omf_dos_tintas:nnn #1#2#3
+  {
+    \mode_leave_vertical:
+    { \flores \fontsize {#1} {#1} \selectfont
+      \str_case:Vn \l__omf_plancha_tl
+        {
+          { ambas } { \rlap{\color{tintamarco}#2} {\color{tintaletra}#3} }
+          { marco } { \rlap{#2} \phantom{#3} }
+          { letra } { \rlap{\phantom{#2}} #3 }
+        }
+    }
+  }
+
+% \capitular[tamaño]{W|O|I}: capitular dentro de su marco
+\NewDocumentCommand \capitular { O{80pt} m }
+  {
+    \str_case:nnF {#2}
+      {
+        { W } { \__omf_dos_tintas:nnn {#1} { j } { W } }
+        { O } { \__omf_dos_tintas:nnn {#1} { k } { O } }
+        { I } { \__omf_dos_tintas:nnn {#1} { l } { I } }
+      }
+      { \PackageError{omakazeflores}
+          {Solo~hay~capitulares~W,~O~e~I}
+          {La~fuente~trae~las~capitulares~del~original:~W,~O~e~I.} }
+  }
+
+% \retrato[tamaño]: retrato de Claude Garamond en su marco
+% (el retrato va en la tinta del texto, como en el original)
+\NewDocumentCommand \retrato { O{110pt} }
+  {
+    \group_begin:
+    \colorlet{tintaletra}{.}
+    \__omf_dos_tintas:nnn {#1} { m } { q }
+    \group_end:
+  }
