@@ -73,7 +73,7 @@ detail.
 ## Download
 
 If you don't use git, download the `.zip` of the latest version from
-[*Releases*](https://github.com/LiberPH/omakaze-flores/releases): it has the
+[*Releases*](https://github.com/Omakaze-books/omakaze-flores/releases): it has the
 font, the LaTeX package, the SVGs, the PDFs and the specimen.
 
 ## Using it in LaTeX

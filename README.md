@@ -70,7 +70,7 @@ conservan todo el detalle.
 ## Descarga
 
 Si no usas git, descarga el `.zip` de la última versión en
-[*Releases*](https://github.com/LiberPH/omakaze-flores/releases): trae la
+[*Releases*](https://github.com/Omakaze-books/omakaze-flores/releases): trae la
 fuente, el paquete de LaTeX, los SVG, los PDF y el espécimen.
 
 ## Uso en LaTeX
