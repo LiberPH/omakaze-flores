@@ -2,7 +2,7 @@
 
 *[English version](README.en.md)*
 
-Ornamentos tipográficos («flores de imprenta») del *Monotype: A Journal of
+Ornamentos tipográficos («flores de imprenta o florituras») del *Monotype: A Journal of
 Composing Room Efficiency*, vol. 9, n.º 6 (enero–febrero de 1923),
 vectorizados y reunidos en una fuente OpenType, en archivos SVG y en PDF
 listos para usar. Están pensados sobre todo para componer libros en LaTeX,
